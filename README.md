@@ -22,5 +22,28 @@ graph TD
     INV --> SEQ2
     SEQ2 --> COND2
     SEQ2 --> ACT2
+Demarrage rapide:
+# 1. Cloner le projet
+git clone [https://github.com/votre-compte/BehaviorTree.git](https://github.com/votre-compte/BehaviorTree.git)
+cd BehaviorTree
+
+# 2. Lancer le serveur local
+node server.mjs
+Ouvre http://localhost:3000 dans ton navigateur pour voir la démo animée.
+Exemple:
+import { BehaviorTree, NodeRegistry, Blackboard } from './BehaviorTree.js';
+
+const registry = new NodeRegistry();
+registry.registerAction('hasKey', async (ctx) => ctx.get('hasKey') ? 'SUCCESS' : 'FAIL');
+registry.registerAction('openDoor', async () => 'SUCCESS');
+
+const response = await fetch('./test.json');
+const treeJSON = await response.json();
+
+const tree = BehaviorTree.fromJSON(treeJSON, registry);
+const blackboard = new Blackboard();
+blackboard.set('hasKey', true);
+
+await tree.update(blackboard);
 ```
 
