@@ -29,20 +29,5 @@ flowchart TD
     SEQ2 --> COND2
     SEQ2 --> ACT2
 
-Exemple:
-import { BehaviorTree, NodeRegistry, Blackboard } from './BehaviorTree.js';
-
-const registry = new NodeRegistry();
-registry.registerAction('hasKey', async (ctx) => ctx.get('hasKey') ? 'SUCCESS' : 'FAIL');
-registry.registerAction('openDoor', async () => 'SUCCESS');
-
-const response = await fetch('./test.json');
-const treeJSON = await response.json();
-
-const tree = BehaviorTree.fromJSON(treeJSON, registry);
-const blackboard = new Blackboard();
-blackboard.set('hasKey', true);
-
-await tree.update(blackboard);
 ```
 
