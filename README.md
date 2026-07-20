@@ -29,15 +29,6 @@ flowchart TD
     SEQ2 --> COND2
     SEQ2 --> ACT2
 
-
-# 1. Cloner le projet
-git clone [https://github.com/votre-compte/BehaviorTree.git](https://github.com/votre-compte/BehaviorTree.git)
-cd BehaviorTree
-
-# 2. Lancer le serveur local
-node server.mjs
-Ouvre http://localhost:3000 dans ton navigateur pour voir la démo animée.
-
 Exemple:
 import { BehaviorTree, NodeRegistry, Blackboard } from './BehaviorTree.js';
 
