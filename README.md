@@ -7,19 +7,19 @@ Moteur d'**Arbre de Comportement** (Behavior Tree) léger en JavaScript/TypeScri
 
 ---
 
-## 🎨 Animation Démo & Structure
+## 🎨 Structure de l'Arbre
 
 ```mermaid
-graph TD
-    ROOT("🧠 Root Selector")
-    SEQ1("➡️ Sequence : Tenter d'ouvrir la porte")
-    COND1("❓ Condition : Vérifier Clé")
-    ACT1("🎬 Action : Déverrouiller et Ouvrir")
+flowchart TD
+    ROOT["Root Selector"]
+    SEQ1["Sequence : Tenter d opening"]
+    COND1["Condition : Has Key"]
+    ACT1["Action : Open Door"]
     
-    INV("🔄 Inverter : Porte Bloquée")
-    SEQ2("➡️ Sequence : Action Secours")
-    COND2("❓ Condition : Est-ce défonçable ?")
-    ACT2("🎬 Action : Frapper à la porte")
+    INV["Inverter : Porte Bloquee"]
+    SEQ2["Sequence : Action Secours"]
+    COND2["Condition : Can Break Door"]
+    ACT2["Action : Knock Door"]
 
     ROOT --> SEQ1
     ROOT --> INV
@@ -28,7 +28,6 @@ graph TD
     INV --> SEQ2
     SEQ2 --> COND2
     SEQ2 --> ACT2
-
 
 
 
