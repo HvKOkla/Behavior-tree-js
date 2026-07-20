@@ -1,3 +1,6 @@
+<img width="1920" height="826" alt="Capture d’écran (199)" src="https://github.com/user-attachments/assets/604148cb-236e-43cd-bc41-3742a2478f22" />
+<img width="1920" height="828" alt="Capture d’écran (198)" src="https://github.com/user-attachments/assets/d68c58fa-7568-47b7-bf89-39f9920fa184" />
+<img width="1920" height="837" alt="Capture d’écran (197)" src="https://github.com/user-attachments/assets/238392c9-8e33-44d6-a95e-6377f999f550" />
 # Mon Projet BehaviorTree.js
 
 ## Structure de l'arbre
