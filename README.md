@@ -29,6 +29,13 @@ flowchart TD
     SEQ2 --> COND2
     SEQ2 --> ACT2
 
+Demarrage Rapide
+Cloner le dépôt : git clone https://github.com/votre-compte/BehaviorTree.git
 
+Ouvrir le dossier : cd BehaviorTree
+
+Lancer le serveur local : node server.mjs
+
+Ouvrir l'application : Rendez-vous sur http://localhost:3000
 
 
