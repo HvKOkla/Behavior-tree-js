@@ -103,7 +103,3 @@ MIT — see [`LICENSE`](./LICENSE).
 ---
 
 Built with ❤️ by [HvKOkla](https://github.com/HvKOkla).
-```
-
-
-C'est **deux fois plus court** que la version précédente, mais garde l'essentiel : features, quick start, exemple, API, sécurité, roadmap, licence. Tu veux encore plus court ?
