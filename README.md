@@ -1,33 +1,109 @@
-<img width="1920" height="826" alt="Capture d’écran (199)" src="https://github.com/user-attachments/assets/604148cb-236e-43cd-bc41-3742a2478f22" />
-<img width="1920" height="828" alt="Capture d’écran (198)" src="https://github.com/user-attachments/assets/d68c58fa-7568-47b7-bf89-39f9920fa184" />
-<img width="1920" height="837" alt="Capture d’écran (197)" src="https://github.com/user-attachments/assets/238392c9-8e33-44d6-a95e-6377f999f550" />
+
 # BehaviorTree.js
 
-Moteur d'Arbre de Comportement (Behavior Tree) leger en JavaScript/TypeScript, executable via des fichiers JSON avec visualisation dynamique en temps reel.
+A lightweight **Behavior Tree** engine for JavaScript/TypeScript, driven by JSON, with **real-time visualization**.
+
+Define complex AI behaviors in a simple JSON file — no recompilation needed.
+
+
+## Features
+
+- Modular nodes: `Selector`, `Sequence`, `Action`, `Condition`, `Inverter`
+- JSON-driven tree configuration
+- `Blackboard` for shared context
+- `NodeRegistry` to map JSON actions to JS callbacks
+- Real-time visualization (`IDLE` → `RUNNING` → `SUCCESS`/`FAIL`)
+- CodeQL & DevSkim security workflows
 
 ---
 
-## Structure de l'Arbre
+## 🚀 Quick Start
 
-```mermaid
-flowchart TD
-    ROOT[Root Selector]
-    SEQ1[Sequence : Tenter ouverture]
-    COND1[Condition : Has Key]
-    ACT1[Action : Open Door]
-    
-    INV[Inverter : Porte Bloquee]
-    SEQ2[Sequence : Action Secours]
-    COND2[Condition : Can Break Door]
-    ACT2[Action : Knock Door]
+```bash
+git clone https://github.com/HvKOkla/Behavior-tree-js.git
+cd Behavior-tree-js
+npm install
+node server.mjs   # open http://localhost:3000
+```
 
-    ROOT --> SEQ1
-    ROOT --> INV
-    SEQ1 --> COND1
-    SEQ1 --> ACT1
-    INV --> SEQ2
-    SEQ2 --> COND2
-    SEQ2 --> ACT2
+Run the CLI test:
+
+```bash
+npm test
+```
+
+---
+
+## 🧠 Example
+
+**`test.json`**
+
+```json
+{
+  "name": "Root",
+  "type": "Selector",
+  "children": [
+    {
+      "type": "Sequence",
+      "children": [
+        { "type": "Condition", "actionName": "hasKey" },
+        { "type": "Action", "actionName": "openDoor" }
+      ]
+    },
+    { "type": "Action", "actionName": "knockDoor" }
+  ]
+}
+```
+
+**`main.js`**
+
+```javascript
+import { BehaviorTree, NodeRegistry, Blackboard } from './BehaviorTree.js';
+
+const registry = new NodeRegistry();
+registry.registerAction('hasKey', (ctx) => ctx.get('hasKey') ? 'SUCCESS' : 'FAIL');
+registry.registerAction('openDoor', () => 'SUCCESS');
+registry.registerAction('knockDoor', () => 'SUCCESS');
+
+const tree = BehaviorTree.fromJSON(await (await fetch('./test.json')).json(), registry);
+const blackboard = new Blackboard();
+blackboard.set('hasKey', true);
+
+console.log(await tree.update(blackboard)); // "SUCCESS"
+```
+
+---
+
+## 📦 API
+
+| Class | Description |
+|-------|-------------|
+| `Blackboard` | Shared key-value store |
+| `Selector` | Runs children until `SUCCESS` or `RUNNING` |
+| `Sequence` | Runs children until `FAIL` or `RUNNING` |
+| `Action` | Executes a registered callback |
+| `Condition` | Returns `SUCCESS` or `FAIL` |
+| `Inverter` | Inverts child result |
+| `NodeRegistry` | Maps names to callbacks |
+| `BehaviorTree` | Root node + `update(context)` |
+
+**Status values:** `SUCCESS`, `FAIL`, `RUNNING`
+
+---
+
+## 🔒 Security
+
+Scanned with **CodeQL** and **DevSkim** via GitHub Actions. See [`SECURITY.md`](./SECURITY.md).
 
 
+## License
 
+MIT — see [`LICENSE`](./LICENSE).
+
+---
+
+Built with ❤️ by [HvKOkla](https://github.com/HvKOkla).
+```
+
+
+C'est **deux fois plus court** que la version précédente, mais garde l'essentiel : features, quick start, exemple, API, sécurité, roadmap, licence. Tu veux encore plus court ?
