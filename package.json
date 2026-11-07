@@ -1,0 +1,13 @@
+{
+  "name": "behaviortree-js",
+  "version": "1.0.0",
+  "description": "Lightweight Behavior Tree engine in JavaScript with real-time visualization.",
+  "type": "module",
+  "main": "BehaviorTree.js",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node main.js"
+  },
+  "keywords": ["behavior-tree", "ai", "game-ai", "javascript"],
+  "license": "MIT"
+}

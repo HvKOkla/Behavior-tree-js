@@ -1,51 +1,42 @@
-import { BehaviorTree, NodeRegistry, Blackboard, JSONNode } from './BehaviorTree.js
-const registry = new NodeRegistry<Blackboard>();
+import { BehaviorTree, NodeRegistry, Blackboard } from './BehaviorTree.js';
 
+const registry = new NodeRegistry();
 
 registry.registerAction('hasKey', (ctx) => {
-    const hasKey = ctx.get<boolean>('hasKey');
-    console.log(`[Condition] Vérifier clé... ${hasKey ? 'OUI' : 'NON'}`);
+    const hasKey = ctx.get('hasKey');
+    console.log(`[Condition] Check key... ${hasKey ? 'YES' : 'NO'}`);
     return hasKey ? 'SUCCESS' : 'FAIL';
 });
 
 registry.registerAction('openDoor', () => {
-    console.log('[Action] 🚪 La porte est ouverte !');
+    console.log('[Action] The door is open!');
     return 'SUCCESS';
 });
 
 registry.registerAction('canBreakDoor', (ctx) => {
-    const isStrong = ctx.get<boolean>('isStrong');
-    console.log(`[Condition] Est-ce défonçable ?... ${isStrong ? 'OUI' : 'NON'}`);
+    const isStrong = ctx.get('isStrong');
+    console.log(`[Condition] Can the door be broken?... ${isStrong ? 'YES' : 'NO'}`);
     return isStrong ? 'SUCCESS' : 'FAIL';
 });
 
 registry.registerAction('knockDoor', () => {
-    console.log('[Action] ✊ Toc toc toc à la porte !');
+    console.log('[Action] Knock knock knock on the door!');
     return 'SUCCESS';
 });
 
-
 async function runTest() {
     try {
-        
         const response = await fetch('./test.json');
-        const treeJSON: JSONNode = await response.json();
-
-        
+        const treeJSON = await response.json();
         const tree = BehaviorTree.fromJSON(treeJSON, registry);
-
-        
         const blackboard = new Blackboard();
-        blackboard.set('hasKey', true);     // On lui donne la clé
-        blackboard.set('isStrong', false);  // Pas assez fort pour défoncer
-
-        
-        console.log("--- DÉBUT DU TEST ---");
+        blackboard.set('hasKey', true);
+        blackboard.set('isStrong', false);
+        console.log("--- TEST START ---");
         const result = await tree.update(blackboard);
-        console.log(`--- FIN DU TEST (Résultat : ${result}) ---`);
-
+        console.log(`--- TEST END (Result: ${result}) ---`);
     } catch (error) {
-        console.error("Erreur lors du chargement ou de l'exécution :", error);
+        console.error("Error while loading or executing:", error);
     }
 }
 
